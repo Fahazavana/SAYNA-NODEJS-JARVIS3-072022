@@ -10,8 +10,12 @@ module.exports = {
 			cover: req.body.cover,
 		};
 
-		const piece = await Piece.create(data);
-		res.status(200).send(piece);
+		try {
+			const piece = await Piece.create(data);
+			res.status(200).send(piece);
+		} catch (err) {
+			res.status(403).send(JSON.stringify(err));
+		}
 	},
 	list: async (req, res) => {
 		let pieces = await Piece.findAll({});

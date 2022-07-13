@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const parseError = require('../utilities/parseError')
 
 // Main Model
 const Object = db.objects;
@@ -9,9 +10,13 @@ module.exports = {
 			name: req.body.name,
 			type: req.body.type,
 		};
-
+		try{
 		const object = await Object.create(data);
-		res.status(200).send(object);
+		res.status(200).send(object);}
+		catch(error){
+			res.send(JSON.stringify(parseError(error)))
+			
+		}
 	},
 	list: async (req, res) => {
 		let objects = await Object.findAll({});

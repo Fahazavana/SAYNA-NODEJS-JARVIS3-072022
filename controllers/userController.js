@@ -1,42 +1,48 @@
+const { compare } = require("bcryptjs");
 const db = require("../models");
-
-// Main Model
+const parseError = require("../utilities/parseError");
 const User = db.users;
 
+const getAlluser = async (req, res) => {
+	let users = await User.findAll({
+		attributes: [
+			"id",
+			"firstname",
+			"lastname",
+			"date_naissance",
+			"sexe",
+			"email",
+			"role",
+		],
+	});
+	res.status(200).send(users);
+};
+
+const getById = async (req, res) => {
+	let id = req.params.id;
+	let user = await User.findOne({
+		where: { id: id },
+	});
+	res.status(200).send(user);
+};
+const updateUser = async (req, res) => {
+	let id = req.params.id;
+	let user = await User.update(req.body, {
+		where: { id: id },
+	});
+	res.status(200).send(user);
+};
+const deleteUser = async (req, res) => {
+	let id = req.params.id;
+	await User.destroy({
+		where: { id: id },
+	});
+	res.status(200).send(`User with id=${id} is deleted`);
+};
+
 module.exports = {
-	add: async (req, res) => {
-		let data = {
-			firstname:req.body.firestname,
-			lastname:req.body.lastname,
-			email:req.body.email,
-			password:req.body.password
-		};
-		const user = await User.create(data);
-		res.status(200).send(user);
-	},
-	list: async (req, res) => {
-		let users = await User.findAll({});
-		res.status(200).send(users);
-	},
-	getById: async (req, res) => {
-		let id = req.params.id;
-		let user = await User.findOne({
-			where: { id: id },
-		});
-		res.status(200).send(user);
-	},
-	update: async (req, res) => {
-		let id = req.params.id;
-		let user = await User.update(req.body, {
-			where: { id: id },
-		});
-		res.status(200).send(user);
-	},
-	delete: async (req, res) => {
-		let id = req.params.id;
-		await User.destroy({
-			where: { id: id },
-		});
-		res.status(200).send(`User with id=${id} is deleted`);
-	},
+	list: getAlluser,
+	delete: deleteUser,
+	update: updateUser,
+	getById: getById,
 };

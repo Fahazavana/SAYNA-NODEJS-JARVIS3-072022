@@ -26,7 +26,7 @@ db.users = require("./userModel.js")(sequelize, DataTypes);
 db.pieces = require("./pieceModel.js")(sequelize, DataTypes);
 db.objects = require("./objectModel.js")(sequelize, DataTypes);
 
-db.sequelize.sync({force:false}).then(()=>{
+db.sequelize.sync({alter:false}).then(()=>{
 	console.log("re-sync: done!");
 }).catch(err=>{
 	console.log(err)

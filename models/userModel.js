@@ -1,9 +1,5 @@
 "use strict";
 const { Model } = require("sequelize");
-const UIDGenerator = require("uid-generator");
-const uidgen = new UIDGenerator(56).bitSize;
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 module.exports = (sequelize, DataTypes) => {
 	class User extends Model {
 		/**
@@ -46,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
 			email: {
 				type: DataTypes.STRING(150),
 				allowNull: false,
+				unique:true,
 				validate: {
 					len: {
 						args: [10, 150],
@@ -64,29 +61,26 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
+			date_naissance:{
+				type:DataTypes.DATEONLY,
+				allowNull:false,
+			},
+			role:{
+				type:DataTypes.ENUM('Tuteur','Enfant','Admin'),
+				defaultValue:'Tuteur',
+				allowNull:false
+			},
+			sexe:{
+				type:DataTypes.ENUM('Femme','Homm'),
+				defaultValue:'Femme',
+				allowNull:false
+			}
 		},
 		{
 			sequelize,
 			modelName: "User",
 			timestamps: true,
 			createdAt: true,
-			hooks: {
-				beforeCreate: async (User) => {
-					uidgen.generate().then((uid) => {
-						User.token = uid;
-					});
-
-					if (User.password) {
-						const salt = await bcrypt.genSaltSync(saltRounds, "a");
-						User.password = bcrypt.hashSync(User.password, salt);
-					}
-				},
-			},
-			instanceMethods: {
-				passwordCheck(password) {
-					return bcrypt.compare(password, this.password);
-				},
-			},
 		}
 	);
 	return User;
