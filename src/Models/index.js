@@ -1,11 +1,10 @@
-const dbconf = require("../config/db");
-
+const {DB_HOST,DB_USER,DB_PASSWORD,DB,DB_DIALECT} = process.env;
 
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize(dbconf.DB, dbconf.USER, dbconf.PASSWORD, {
-	host: dbconf.HOST,
-	dialect: dbconf.dialect
+const sequelize = new Sequelize(DB, DB_USER, DB_PASSWORD, {
+	host: DB_HOST,
+	dialect: DB_DIALECT,
 });
 
 sequelize
@@ -26,10 +25,13 @@ db.users = require("./userModel.js")(sequelize, DataTypes);
 db.pieces = require("./pieceModel.js")(sequelize, DataTypes);
 db.objects = require("./objectModel.js")(sequelize, DataTypes);
 
-db.sequelize.sync({alter:false}).then(()=>{
-	console.log("re-sync: done!");
-}).catch(err=>{
-	console.log(err)
-});
+db.sequelize
+	.sync({ force: false })
+	.then(() => {
+		console.log("DB Re-Sync: done!");
+	})
+	.catch((err) => {
+		console.log(err);
+	});
 
-module.exports=db
+module.exports = db;

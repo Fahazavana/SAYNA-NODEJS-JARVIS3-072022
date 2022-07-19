@@ -1,5 +1,5 @@
-const db = require("../models/index");
-const parseError = require('../utilities/parseError')
+const db = require("../Models/index");
+const parseError = require('../Utilities/parseError')
 
 // Main Model
 const Object = db.objects;

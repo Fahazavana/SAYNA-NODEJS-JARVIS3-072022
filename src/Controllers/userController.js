@@ -1,6 +1,6 @@
 const { compare } = require("bcryptjs");
-const db = require("../models");
-const parseError = require("../utilities/parseError");
+const db = require("../Models");
+const parseError = require("../Utilities/parseError");
 const User = db.users;
 
 const getAlluser = async (req, res) => {
@@ -15,6 +15,7 @@ const getAlluser = async (req, res) => {
 			"role",
 		],
 	});
+	console.log(req)
 	res.status(200).send(users);
 };
 

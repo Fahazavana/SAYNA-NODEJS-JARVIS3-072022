@@ -1,4 +1,5 @@
-const objectController = require('../controllers/objectController')
+const objectController = require('../Controllers/objectController')
+
 
 const router = require('express').Router()
 
@@ -19,15 +20,15 @@ router.post('/:id',objectController.delete)
  *       - application/json
  *     parameters:
  *       - name: id
- *         description: Puppy's id
+ *         description: Object's id
  *         in: path
  *         required: true
  *         type: integer
  *     responses:
  *       200:
- *         description: A single puppy
+ *         description: Return Object's details
  *         schema:
- *           $ref: '#/definitions/Puppy'
+ *           $ref: '#/definitions/Object'
  */
 router.get('/:id',objectController.getById)
 module.exports = router

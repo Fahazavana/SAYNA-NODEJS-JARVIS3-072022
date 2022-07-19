@@ -1,4 +1,4 @@
-const pieceController = require('../controllers/pieceController')
+const pieceController = require('../Controllers/pieceController')
 
 const router = require('express').Router()
 
