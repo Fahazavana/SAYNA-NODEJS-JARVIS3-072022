@@ -48,6 +48,7 @@ const addUser = async (req, res) => {
 		res.status(409).json({
 			error: true,
 			message: "Donné erroné",
+			data
 		});
 	} else if (data.password !== data.password_confirmation) {
 		res.status(409).json({

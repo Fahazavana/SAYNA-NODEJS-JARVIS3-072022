@@ -1,9 +1,10 @@
-const userController = require('../Controllers/userController')
+const userController = require("../Controllers/userController");
 
-const router = require('express').Router()
+const router = require("express").Router();
 
-router.get('/',userController.list)
-router.put('/:id',userController.update)
-router.post('/:id',userController.delete)
-router.get('/:id',userController.getById)
-module.exports = router
+router.get("/", userController.list);
+router.route('/:id')
+	.put(userController.update)
+	.post(userController.delete)
+	.get(userController.getById);
+module.exports = router;
