@@ -109,12 +109,12 @@ const loginUser = async (req, res) => {
 			bcrypt.compare(password, user.password).then((result) => {
 				if (result) {
 					token = user.token;
-					res.cookie("jwt", token, {
-						httpOnly: true,
-						maxAge: 3600 * 60 * 1000 * 24,
-						sameSite: "none",
-						secure: true,
-					});
+					res.cookie("token", token, {
+            httpOnly: true,
+            maxAge: 3600 * 60 * 1000 * 24,
+            sameSite: "none",
+            secure: true,
+          });
 					res.status(200).json({
 						error: false,
 						message: "Connexion réussit",

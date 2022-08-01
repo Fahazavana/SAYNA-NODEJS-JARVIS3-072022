@@ -10,6 +10,7 @@
 			integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
 			crossorigin="anonymous"
 		/>
+		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
 		<%- include('./partials/navbar') %>
@@ -19,6 +20,86 @@
 				<div class="col text-center p-5">
 					<h1>JARVIS API</h1>
 				</div>
+				<h2>Enpoint list</h2>
+				<table>
+					<tr>
+						<th>Endpoint</th>
+						<th>Authorization * </th>
+						<th>Response type</th>
+						<th>Supported Method</th>
+					</tr>
+					<tbody>
+						<tr>
+							<td>/</td>
+							<td>none</td>
+							<td>This page</td>
+							<td>GET</td>
+						</tr>
+						<tr>
+							<td>/login</td>
+							<td>none</td>
+							<td>Login page</td>
+							<td>GET</td>
+						</tr>
+						<tr>
+							<td>/register</td>
+							<td>none</td>
+							<td>Register page</td>
+							<td>GET</td>
+						</tr>
+						<tr>
+							<td>/api/v1/register</td>
+							<td>none</td>
+							<td>JSON</td>
+							<td>POST</td>
+						</tr>
+						</tr>
+						<tr>
+							<td>/api/v1/login</td>
+							<td>none</td>
+							<td>JSON</td>
+							<td>POST</td>
+						</tr>
+						</tr>
+						<tr>
+							<td>/api/v1/user</td>
+							<td>Bearer token</td>
+							<td>JSON</td>
+							<td>POST(no Authorization)/GET </td>
+						</tr>
+						<tr>
+							<td>/api/v1/user/:id</td>
+							<td>Bearer token</td>
+							<td>JSON</td>
+							<td>GET/PUT </td>
+						</tr>
+						<tr>
+							<td>/api/v1/object</td>
+							<td>Bearer token</td>
+							<td>JSON</td>
+							<td>POST/GET </td>
+						</tr>
+						<tr>
+							<td>/api/v1/object/:id</td>
+							<td>Bearer token</td>
+							<td>JSON</td>
+							<td>GET/PUT </td>
+						</tr>
+						<tr>
+							<td>/api/v1/piece</td>
+							<td>Bearer token</td>
+							<td>JSON</td>
+							<td>POST/GET </td>
+						</tr>
+						<tr>
+							<td>/api/v1/piece/:id</td>
+							<td>Bearer token</td>
+							<td>JSON</td>
+							<td>GET/PUT </td>
+						</tr>
+					</tbody>
+				</table>
+				<span>(*) Header</span>
 			</div>
 		</main>
 	</body>

@@ -3,17 +3,18 @@ const PORT=process.env.PORT;
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const {expressjwt:jwt} = require('express-jwt')
-const corsOptions = require('./config/corsOptions')
+const path = require("path");
+const corsOptions = require("./config/corsOptions");
+const authenticateToken = require("./src/Middleware/tokenVerify");
 
 // middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(jwt({secret:process.env.JWTSECRET,algorithms:['SH256']}).unless({path:['/','/register','/login','/logout']}));
-app.use("/public",express.static('public'))
+app.use("/public", express.static("public"));
 app.set("views", "./src/Views");
 app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname + "/public")));
 
 // Importing routers
 const objectRouter = require("./src/Routers/objectRoute");
@@ -25,9 +26,9 @@ const authRouter = require("./src/Routers/authRoute");
 // Register routers
 app.use("/", docsRouter);
 app.use("/api/v1", authRouter);
-app.use("/api/v1/object", objectRouter);
-app.use("/api/v1/piece", pieceRouter);
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1/object", authenticateToken, objectRouter);
+app.use("/api/v1/piece", authenticateToken, pieceRouter);
+app.use("/api/v1/user", authenticateToken, userRouter);
 
 
 // Server
