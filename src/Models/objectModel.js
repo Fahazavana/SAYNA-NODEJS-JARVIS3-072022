@@ -1,20 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
 
-/**
- * @swagger
- * definitions:
- *   Object:
- *     properties:
- *       id:
- *         type: string
- *       name:
- *         type: string
- *       age:
- *         type: integer
- *       status:
- *         type: string
- */
 module.exports = (sequelize, DataTypes) => {
 	class Object extends Model {
 		/**
